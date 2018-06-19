@@ -17,6 +17,11 @@ Route::get('/', function () {
 
 Auth::routes();
 
+Route::get('/subsection', 'Comments@subsection');
+Route::get('/about', 'Comments@about');
+Route::get('/about/topic', 'Comments@topic');
+
+
 //Route::get('/home', 'HomeController@index')->name('home');
 
     Route::get('/register', 'RegistrationController@create');

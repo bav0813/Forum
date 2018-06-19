@@ -9,5 +9,13 @@ use App\Http\Controllers\Controller;
 
 class Comments extends Controller
 {
-    //
+    public function subsection(){
+        return view('subsection');
+    }
+    public function about(){
+        return view('about');
+    }
+    public function topic(){
+        return view('topic');
+    }
 }

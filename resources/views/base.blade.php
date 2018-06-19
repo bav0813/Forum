@@ -23,12 +23,12 @@
 <nav class="navbar navbar-expand-sm">
     <div class="container-fluid" id="navbarr">
         <div class="navbar-header">
-        <a class="navbar-brand" href="#"><img src="/img/school(1).png"></a>
+        <a class="navbar-brand" href="{{ url('/') }}"><img src="/img/school(1).png"></a>
     
             
         </div>
   <ul class="nav navbar-nav navbar-center">
-    <h3 id='sch'>Школы Киева</h3>
+    <h1 id='sch'>Школы Киева</h1>
       </ul>
 
         <ul class="nav navbar-nav navbar-right">
@@ -56,8 +56,17 @@
  -->
 <!--              <img id="back" src={{ asset('img/RE.jpg') }} />
  -->
-      
- 
+
+
+
+
+   <div class="poshuk">
+       <form class="form-search" method="get" action="search">
+           <input type="text" name="search" class="input-medium search-query">
+           <button type="submit" class="btn poiskbtn">Найти</button>
+       </form>
+   </div>
+
       
 @yield('content')
       

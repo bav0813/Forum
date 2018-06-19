@@ -26,4 +26,10 @@ class HomeController extends Controller
     {
         return view('home');
     }
+//    public function subsection(){
+//        return view('subsection');
+//    }
+//    public function about(){
+//        return view('about');
+//    }
 }
