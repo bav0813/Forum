@@ -7,17 +7,15 @@
             <h6>Незаконченный ремонт</h6>
     </div>
 
-
+    <div class="container-fluid">
+        <div class="row">
         <div class="aboutauthor">
             <div class="authorabout">
                 <span>Автор</span>
                 <br>
                 <p style="color: orangered">Name</p>
-                <p>Пол:</p>
-                <p>Возраст:</p>
                 <p>Зарегестрирован:</p>
                 <p>Сообщения:</p>
-                <p>Откуда:</p>
             </div>
         </div>
             <div class="topic">
@@ -55,11 +53,8 @@
                 <span>Автор</span>
                 <br>
                 <p style="color: orangered">Name</p>
-                <p>Пол:</p>
-                <p>Возраст:</p>
                 <p>Зарегестрирован:</p>
                 <p>Сообщения:</p>
-                <p>Откуда:</p>
             </div>
         </div>
         <div class="topic">
@@ -86,11 +81,8 @@
             <span>Автор</span>
             <br>
             <p style="color: orangered">Name</p>
-            <p>Пол:</p>
-            <p>Возраст:</p>
             <p>Зарегестрирован:</p>
             <p>Сообщения:</p>
-            <p>Откуда:</p>
         </div>
     </div>
     <div class="topic">
@@ -110,7 +102,8 @@
 
     </div>
 
-
+</div>
+    </div>
 
 
 @endsection

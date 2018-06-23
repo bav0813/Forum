@@ -11,12 +11,12 @@
 |
 */
 
-Route::get('/', function () {
-    return view('main');
-});
+//Route::get('/', function () {
+//    return view('main');
+//});
 
 Auth::routes();
-
+Route::get('/', 'Comments@index');
 Route::get('/subsection', 'Comments@subsection');
 Route::get('/about', 'Comments@about');
 Route::get('/about/topic', 'Comments@topic');

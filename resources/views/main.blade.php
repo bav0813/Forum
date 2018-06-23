@@ -1,113 +1,6 @@
 @extends('base')
 
 @section('content')
-<!--  <div class="category">    
-    <h6>ОБСУЖДЕНИЕ ШКОЛ</h6>
-         <div class="topic">
-             <p class="topic_theme">Topic1</p>
-         </div>   
-         <div class="topic">
-             <p class="topic_theme">Topic1</p>
-         </div>   
-         <div class="topic">
-             <p class="topic_theme">Topic1</p>
-         </div>   
- </div>
-
- <div class="category">    
-    <h6>ПОСТУПЛЕНИЕ</h6>
-         <div class="topic">
-             <p class="topic_theme">Topic1</p>
-         </div>   
-         <div class="topic">
-             <p class="topic_theme">Topic1</p>
-         </div>   
-         <div class="topic">
-             <p class="topic_theme">Topic1</p>
-         </div>   
- </div>
-
-<div class="category">    
-    <h6>ВЫПУСКНОЙ</h6>
-         <div class="topic">
-             <p class="topic_theme">Topic1</p>
-         </div>   
-         <div class="topic">
-             <p class="topic_theme">Topic1</p>
-         </div>   
-         <div class="topic">
-             <p class="topic_theme">Topic1</p>
-         </div>   
- </div>
-
-<div class="category">    
-    <h6>ПРЕПОДАВАТЕЛИ</h6>
-         <div class="topic">
-             <p class="topic_theme">Topic1</p>
-         </div>   
-         <div class="topic">
-             <p class="topic_theme">Topic1</p>
-         </div>   
-         <div class="topic">
-             <p class="topic_theme">Topic1</p>
-         </div>   
- </div>
-
-<div class="category">    
-    <h6>ОРГАНИЗАЦИЯ ЭКСКУРСИЙ</h6>
-         <div class="topic">
-             <p class="topic_theme">Topic1</p>
-         </div>   
-         <div class="topic">
-             <p class="topic_theme">Topic1</p>
-         </div>   
-         <div class="topic">
-             <p class="topic_theme">Topic1</p>
-         </div>   
- </div>
-
-<div class="category">    
-    <h6>ДОПОЛНИТЕЛЬНЫЕ СЕКЦИИ</h6>
-         <div class="topic">
-             <p class="topic_theme">Topic1</p>
-         </div>   
-         <div class="topic">
-             <p class="topic_theme">Topic1</p>
-         </div>   
-         <div class="topic">
-             <p class="topic_theme">Topic1</p>
-         </div>   
- </div>
-
-<div class="category">    
-    <h6>УЧЕБНИКИ И ЛИТЕРАТУРА</h6>
-         <div class="topic">
-             <p class="topic_theme">Topic1</p>
-         </div>   
-         <div class="topic">
-             <p class="topic_theme">Topic1</p>
-         </div>   
-         <div class="topic">
-             <p class="topic_theme">Topic1</p>
-         </div>   
- </div>
-
-<div class="category">    
-    <span>БЕСЕДКА</span>
-  <span>Темы</span>
-  <span>Сообщения</span>
- <span>Последнее сообщение</span>
-         <div class="topic">
-             <p class="topic_theme">Topic1</p>
-         </div>   
-         <div class="topic">
-             <p class="topic_theme">Topic1</p>
-         </div>   
-         <div class="topic">
-             <p class="topic_theme">Topic1</p>
-         </div>   
- </div> -->
-
 
 
 
@@ -123,32 +16,19 @@
     <th>Сообщения</th>
     <th>Последнее сообщение</th>
   </tr>
+
+    @foreach($school as $school)
    <tr>
-       <td><a href="{{ url('/about') }}">Школа 200</a></td>
+       <td><a href="">{!!$school->name!!}</a></td>
+           {{--<td><a href="{{ url('/about') }}">Школа 200</a></td>--}}
+
     <td>500</td>
       <td>8000</td>
     <td>Re: Part time linux user
 by phd21 View the latest post
 Fri Jun 15, 2018 9:28 pm</td>
   </tr>
-    <tr>
-    <td><a href="">школа 235</a></td>
-    <td>500</td>
-      <td>8000</td>
-    <td>Re: Part time linux user
-by phd21 View the latest post
-Fri Jun 15, 2018 9:28 pm</td>
-  </tr>
-    </tr>
-   <tr>
-    <td><a href="">Гимназия "Академия"</a></td>
-    <td>500</td>
-      <td>8000</td>
-    <td>Re: Part time linux user
-by phd21 View the latest post
-Fri Jun 15, 2018 9:28 pm</td>
-  </tr>
-    </tr>
+    @endforeach
 </table>
 </div>
 

@@ -95,7 +95,7 @@ th a:hover{
     margin-left: 10px;
     margin-right: 10px;
     width: 82%;
-    min-height: 150px;
+    min-height: 100px;
     background: #edfaf1;
     border: 1px solid green;
     border-radius: 3px;
@@ -114,6 +114,7 @@ th a:hover{
     margin-left: 10px;
     margin-right: 10px;
     width: 15%;
+    height: 100px;
     background: #edfaf1;
     border: 1px solid green;
     border-radius: 3px;
