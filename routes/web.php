@@ -16,10 +16,10 @@
 //});
 
 Auth::routes();
-Route::get('/', 'Comments@index');
-Route::get('/subsection', 'Comments@subsection');
-Route::get('/about', 'Comments@about');
-Route::get('/about/topic', 'Comments@topic');
+Route::get('/', 'CategoriesContoller@index');
+Route::get('/subsection', 'CategoriesContoller@subsection');
+Route::get('/about', 'CategoriesContoller@about');
+Route::get('/about/topic', 'CategoriesContoller@topic');
 
 
 //Route::get('/home', 'HomeController@index')->name('home');

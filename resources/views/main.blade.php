@@ -19,7 +19,7 @@
 
     @foreach($school as $school)
    <tr>
-       <td><a href="">{!!$school->name!!}</a></td>
+       <td><a href="">{!!$school->description!!}</a></td>
            {{--<td><a href="{{ url('/about') }}">Школа 200</a></td>--}}
 
     <td>500</td>

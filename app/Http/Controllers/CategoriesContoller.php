@@ -3,20 +3,20 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
-use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use App\School;
+use App\Subcategories;
+use App\Categories;
 
-class Comments extends Controller
+class CategoriesContoller extends Controller
 {
     public function index(){
-        $school = School::skip(0)->take(5)->get();
+        $school = Subcategories::skip(0)->take(5)->get();
         return view('main')->with('school', $school);
     }
 
     public function subsection(){
-        $school = School::paginate(5);
+        $school = Subcategories::paginate(5);
+
         return view('subsection')->with('school', $school);
     }
     public function about(){
@@ -24,5 +24,11 @@ class Comments extends Controller
     }
     public function topic(){
         return view('topic');
+    }
+
+    public function getAllCategories()
+    {
+        $categories=CategoriesContoller::get();
+        return view('main')->with(['categories'=>$categories]);
     }
 }
