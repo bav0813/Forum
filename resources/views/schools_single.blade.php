@@ -3,6 +3,8 @@
 @section('content')
 
 
+    {{--<h1>Обсуждение школ/{{$topics[0]->sub_descr}}</h1>--}}
+    <h1>Обсуждение школ/{{$sub_descr}}</h1>
 
     <div class="category">
         <table border="1">
@@ -11,14 +13,14 @@
             <col class="col3">
             <col class="col4">
             <tr>
-                <th>Обсуждения школ</th>
+                <th>Обсуждение школ</th>
                 <th>Темы</th>
                 <th>Сообщения</th>
                 <th>Последнее сообщение</th>
             </tr>
-            @foreach($school as $schools)
+            @foreach($topics as $topic)
                 <tr>
-                    <td><a href="">{!!$schools->name!!}</a></td>
+                    <td><a href="/schools/{{$topic->subcategory}}/{{$topic->id}}">{!!$topic->description!!}</a></td>
                     {{--<td><a href="{{ url('/about') }}">Школа 200</a></td>--}}
 
                     <td>500</td>
@@ -32,9 +34,9 @@
     </div>
 
 
-    {{$school->links("pagination::bootstrap-4")}}
+    {{$topics->links("pagination::bootstrap-4")}}
 
 
 
 
-    @endsection
+@endsection

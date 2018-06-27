@@ -2,8 +2,52 @@
 
 @section('content')
 
+@php
+$posts=5;   //posts per category
+@endphp
+
+{{----------------------------school---------------------------------}}
+    <div class="category">
+        <table border="1">
+            <col class="col1">
+            <col class="col2">
+            <col class="col3">
+            <col class="col4">
+            <tr>
 
 
+                <th><a href="/allschools">{{$categories[0]->description}}</a></th>
+                <th>Темы</th>
+                <th>Сообщения</th>
+                <th>Последнее сообщение</th>
+            </tr>
+
+
+            @for ($k = 1; $k <= $posts; $k++)
+                <tr>
+                    <td><a href="/schools/{{$subcat[$k][0]->id}}">{{$subcat[$k][0]->description}}</a></td>
+
+                    <td>{{$cnt_subcat[$k]}}</td>
+                    <td>@foreach ($cnt_subcatcomm as $sbcatcomm)
+                            @if ($sbcatcomm->subcat_id==$subcat[$k][0]->id) {{$sbcatcomm->sbcomm}}
+                            @endif
+                        @endforeach
+                    </td>
+                    <td>@foreach ($get_subcatcomm as $gtcatcomm)
+                            @if ($gtcatcomm->subcat_id==$subcat[$k][0]->id) {{$gtcatcomm->comment}}
+                            @endif
+                        @endforeach
+                    </td>
+                </tr>
+            @endfor
+        </table>
+    </div>
+
+
+{{--------------------------other topics---------------------------}}
+
+@foreach($categories as $cat)
+@if (($cat->id)>1)
 <div class="category"> 
 <table border="1">
    <col class="col1">
@@ -11,312 +55,40 @@
   <col class="col3">
   <col class="col4">
   <tr>
-      <th><a href="{{ url('/subsection') }}">Обсуждение школ</a></th>
-    <th>Темы</th>
+
+
+      <th><a href="/{{$cat->description_en}}">{{$cat->description}}</a></th>
     <th>Сообщения</th>
+    <th></th>
     <th>Последнее сообщение</th>
   </tr>
 
-    @foreach($school as $school)
-   <tr>
-       <td><a href="">{!!$school->description!!}</a></td>
-           {{--<td><a href="{{ url('/about') }}">Школа 200</a></td>--}}
 
-    <td>500</td>
-      <td>8000</td>
-    <td>Re: Part time linux user
-by phd21 View the latest post
-Fri Jun 15, 2018 9:28 pm</td>
-  </tr>
+
+    @php $i=0; @endphp
+    @foreach ($topics as $topic)
+      <tr>
+       @if (($cat->id==$topic->category) && ($i<$posts))
+           @php $i++; @endphp
+              <td><a href="/{{$cat->description_en}}/{{$topic->tpc_id}}">{{$topic->description}}</a></td>
+              <td>
+                  @foreach ($cnt_topics as $cnt_topic)
+                     @if ($cnt_topic->topic_id==$topic->tpc_id) {{$cnt_topic->cnt_comm}}
+                     @endif
+                  @endforeach
+              </td>
+              <td></td>
+              <td>{{str_limit($topic->comment),50}}</td>
+      </tr>
+
+       @endif
     @endforeach
 </table>
 </div>
 
-<div class="category"> 
-<table border="1">
-   <col class="col1">
-  <col class="col2">
-  <col class="col3">
-  <col class="col4">
-  <tr>
-    <th>Поступление</th>
-    <th>Темы</th>
-    <th>Сообщения</th>
-    <th>Последнее сообщение</th>
-  </tr>
-   <tr>
-    <td><a href="">Topic1</a></td>
-    <td>500</td>
-      <td>8000</td>
-    <td>Re: Part time linux user
-by phd21 View the latest post
-Fri Jun 15, 2018 9:28 pm</td>
-  </tr>
-    <tr>
-    <td><a href="">Topic2</a></td>
-    <td>500</td>
-      <td>8000</td>
-    <td>Re: Part time linux user
-by phd21 View the latest post
-Fri Jun 15, 2018 9:28 pm</td>
-  </tr>
-    </tr>
-   <tr>
-    <td><a href="">Topic3</a></td>
-    <td>500</td>
-      <td>8000</td>
-    <td>Re: Part time linux user
-by phd21 View the latest post
-Fri Jun 15, 2018 9:28 pm</td>
-  </tr>
-    </tr>
-</table>
-</div>
+@endif
+@endforeach
 
-<div class="category"> 
-<table border="1">
-   <col class="col1">
-  <col class="col2">
-  <col class="col3">
-  <col class="col4">
-  <tr>
-    <th>Выпускной</th>
-    <th>Темы</th>
-    <th>Сообщения</th>
-    <th>Последнее сообщение</th>
-  </tr>
-   <tr>
-    <td><a href="">Topic1</a></td>
-    <td>500</td>
-      <td>8000</td>
-    <td>Re: Part time linux user
-by phd21 View the latest post
-Fri Jun 15, 2018 9:28 pm</td>
-  </tr>
-    <tr>
-    <td><a href="">Topic2</a></td>
-    <td>500</td>
-      <td>8000</td>
-    <td>Re: Part time linux user
-by phd21 View the latest post
-Fri Jun 15, 2018 9:28 pm</td>
-  </tr>
-    </tr>
-   <tr>
-    <td><a href="">Topic3</a></td>
-    <td>500</td>
-      <td>8000</td>
-    <td>Re: Part time linux user
-by phd21 View the latest post
-Fri Jun 15, 2018 9:28 pm</td>
-  </tr>
-    </tr>
-</table>
-</div>
 
-<div class="category"> 
-<table border="1">
-   <col class="col1">
-  <col class="col2">
-  <col class="col3">
-  <col class="col4">
-  <tr>
-    <th>Преподаватели</th>
-    <th>Темы</th>
-    <th>Сообщения</th>
-    <th>Последнее сообщение</th>
-  </tr>
-   <tr>
-    <td><a href="">Topic1</a></td>
-    <td>500</td>
-      <td>8000</td>
-    <td>Re: Part time linux user
-by phd21 View the latest post
-Fri Jun 15, 2018 9:28 pm</td>
-  </tr>
-    <tr>
-    <td><a href="">Topic2</a></td>
-    <td>500</td>
-      <td>8000</td>
-    <td>Re: Part time linux user
-by phd21 View the latest post
-Fri Jun 15, 2018 9:28 pm</td>
-  </tr>
-    </tr>
-   <tr>
-    <td><a href="">Topic3</a></td>
-    <td>500</td>
-      <td>8000</td>
-    <td>Re: Part time linux user
-by phd21 View the latest post
-Fri Jun 15, 2018 9:28 pm</td>
-  </tr>
-    </tr>
-</table>
-</div>
-
-<div class="category"> 
-<table border="1">
-   <col class="col1">
-  <col class="col2">
-  <col class="col3">
-  <col class="col4">
-  <tr>
-    <th>Организация экскурсий</th>
-    <th>Темы</th>
-    <th>Сообщения</th>
-    <th>Последнее сообщение</th>
-  </tr>
-   <tr>
-    <td><a href="">Topic1</a></td>
-    <td>500</td>
-      <td>8000</td>
-    <td>Re: Part time linux user
-by phd21 View the latest post
-Fri Jun 15, 2018 9:28 pm</td>
-  </tr>
-    <tr>
-    <td><a href="">Topic2</a></td>
-    <td>500</td>
-      <td>8000</td>
-    <td>Re: Part time linux user
-by phd21 View the latest post
-Fri Jun 15, 2018 9:28 pm</td>
-  </tr>
-    </tr>
-   <tr>
-    <td><a href="">Topic3</a></td>
-    <td>500</td>
-      <td>8000</td>
-    <td>Re: Part time linux user
-by phd21 View the latest post
-Fri Jun 15, 2018 9:28 pm</td>
-  </tr>
-    </tr>
-</table>
-</div>
-
-<div class="category"> 
-<table border="1">
-   <col class="col1">
-  <col class="col2">
-  <col class="col3">
-  <col class="col4">
-  <tr>
-    <th>Дополнительные секции</th>
-    <th>Темы</th>
-    <th>Сообщения</th>
-    <th>Последнее сообщение</th>
-  </tr>
-   <tr>
-    <td><a href="">Topic1</a></td>
-    <td>500</td>
-      <td>8000</td>
-    <td>Re: Part time linux user
-by phd21 View the latest post
-Fri Jun 15, 2018 9:28 pm</td>
-  </tr>
-    <tr>
-    <td><a href="">Topic2</a></td>
-    <td>500</td>
-      <td>8000</td>
-    <td>Re: Part time linux user
-by phd21 View the latest post
-Fri Jun 15, 2018 9:28 pm</td>
-  </tr>
-    </tr>
-   <tr>
-    <td><a href="">Topic3</a></td>
-    <td>500</td>
-      <td>8000</td>
-    <td>Re: Part time linux user
-by phd21 View the latest post
-Fri Jun 15, 2018 9:28 pm</td>
-  </tr>
-    </tr>
-</table>
-</div>
-
-<div class="category"> 
-<table border="1">
-   <col class="col1">
-  <col class="col2">
-  <col class="col3">
-  <col class="col4">
-  <tr>
-    <th>Учебники и литература</th>
-    <th>Темы</th>
-    <th>Сообщения</th>
-    <th>Последнее сообщение</th>
-  </tr>
-   <tr>
-    <td><a href="">Topic1</a></td>
-    <td>500</td>
-      <td>8000</td>
-    <td>Re: Part time linux user
-by phd21 View the latest post
-Fri Jun 15, 2018 9:28 pm</td>
-  </tr>
-    <tr>
-    <td><a href="">Topic2</a></td>
-    <td>500</td>
-      <td>8000</td>
-    <td>Re: Part time linux user
-by phd21 View the latest post
-Fri Jun 15, 2018 9:28 pm</td>
-  </tr>
-    </tr>
-   <tr>
-    <td><a href="">Topic3</a></td>
-    <td>500</td>
-      <td>8000</td>
-    <td>Re: Part time linux user
-by phd21 View the latest post
-Fri Jun 15, 2018 9:28 pm</td>
-  </tr>
-    </tr>
-</table>
-</div>
-
-<div class="category"> 
-<table border="1">
-   <col class="col1">
-  <col class="col2">
-  <col class="col3">
-  <col class="col4">
-  <tr>
-    <th>Беседка</th>
-    <th>Темы</th>
-    <th>Сообщения</th>
-    <th>Последнее сообщение</th>
-  </tr>
-   <tr>
-    <td><a href="">Topic1</a></td>
-    <td>500</td>
-      <td>8000</td>
-    <td>Re: Part time linux user
-by phd21 View the latest post
-Fri Jun 15, 2018 9:28 pm</td>
-  </tr>
-    <tr>
-    <td><a href="">Topic2</a></td>
-    <td>500</td>
-      <td>8000</td>
-    <td>Re: Part time linux user
-by phd21 View the latest post
-Fri Jun 15, 2018 9:28 pm</td>
-  </tr>
-    </tr>
-   <tr>
-    <td><a href="">Topic3</a></td>
-    <td>500</td>
-      <td>8000</td>
-    <td>Re: Part time linux user
-by phd21 View the latest post
-Fri Jun 15, 2018 9:28 pm</td>
-  </tr>
-    </tr>
-</table>
-</div>
 
 @endsection

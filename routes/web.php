@@ -15,18 +15,30 @@
 //    return view('main');
 //});
 
-Auth::routes();
-Route::get('/', 'CategoriesContoller@index');
-Route::get('/subsection', 'CategoriesContoller@subsection');
+
+Route::get('/', 'CategoriesContoller@getCategoriesList');
+Route::get('/allschools', 'CategoriesContoller@allschools');
+Route::get('/schools/{school_id}', 'CategoriesContoller@getschool');
+Route::get('/schools/{school_id}/{topic_id}', 'CategoriesContoller@getTopicbySchool');
+
+Route::get('/{category}/{id}', 'CategoriesContoller@getsingletopic');
+Route::post('/{category}/{id}/comments', 'TopicsController@storepost');
+
+
+//Route::get('/category{id}', 'CategoriesContoller@getcategoryindex');
+
+
 Route::get('/about', 'CategoriesContoller@about');
 Route::get('/about/topic', 'CategoriesContoller@topic');
 
 
 //Route::get('/home', 'HomeController@index')->name('home');
-
+    Auth::routes();
     Route::get('/register', 'RegistrationController@create');
     Route::post('/register', 'RegistrationController@store');
     Route::get('/login', 'SessionsController@create');
 //Route::post('/login', 'SessionsController@store');
-    Route::post('/login', 'Auth\LoginController@login');
+    Route::post('/login', 'Auth\LoginController@login')->name('login');;
     Route::get('/logout', 'SessionsController@destroy');
+
+    Route::get('/{category}', 'CategoriesContoller@getcategoryindex');
