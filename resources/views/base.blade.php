@@ -64,8 +64,12 @@
 
    <div class="poshuk">
        <form class="form-search" method="get" action="search">
-           <input type="text" name="search" class="input-medium search-query">
+           <input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
+           {{ csrf_field() }}
+           <input type="text" autocomplete="off" name="search" class="input-medium search-query" onkeyup="showResult(this.value)">
+
            <button type="submit" class="btn poiskbtn">Найти</button>
+           <div id="livesearch"></div>
        </form>
    </div>
 
@@ -77,7 +81,7 @@
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script> -->
- <script src=""></script>
+   <script src="{{ asset('js/main.js') }}"></script>
 
 
 

@@ -31,6 +31,15 @@
         </table>
     </div>
 
+    <div class="new topic">
+        <form  method="post" action="{{$cat_en}}/create">
+            <input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
+            {{ csrf_field() }}
+            <input type="text" name="topicname">
+            <button type="submit">Создать тему</button>
+        </form>
+    </div>
+
 
     {{$topics->links("pagination::bootstrap-4")}}
 

@@ -1,10 +1,14 @@
 <?php
 
 namespace App\Http\Controllers;
-use DB;
+//use DB;
+use Illuminate\Support\Facades\DB;
+
 use App\User;
 use Illuminate\Http\Request;
 use App\Comments;
+use App\Topics;
+
 use Illuminate\Support\Facades\Auth;
 
 
@@ -15,7 +19,7 @@ class TopicsController extends Controller
     {
         //      $this->middleware('auth')->only('store'); //works
 
-        $this->middleware('auth')->except ('store','search');
+        $this->middleware('auth')->except ('storepost','search');
 
     }
 
@@ -57,6 +61,27 @@ class TopicsController extends Controller
 
 
 
-        return back ();
+        return  back();
     }
+
+
+    public function createtopic($category)
+    {
+
+
+            $cat = DB::table ( 'categories' )->where ( 'description_en' , $category )->first ();
+//dd($cat);
+            Topics::create ( [
+                'description' => request ( 'topicname' ),
+                'category' => $cat->id ,
+                'is_active' => '1' ,
+                'user_id' => auth ()->user ()->id
+                //  'user_id'=>$user->id
+
+
+            ] );
+            return back ();
+        }
+
+
 }

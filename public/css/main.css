@@ -178,7 +178,12 @@ th a:hover{
 tr:hover{
     background-color: lightyellow;
 }
-
+#livesearch{
+    width: 268px;
+    margin-left:472px;
+    font-size: 20px;
+    background-color: white;
+}
 
 
 

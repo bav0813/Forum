@@ -14,13 +14,16 @@
 //Route::get('/', function () {
 //    return view('main');
 //});
+    Route::get('/livesearch/{str}', 'SearchController@livesearch');
 
+    Route::get('/search', 'SearchController@search');
 
 Route::get('/', 'CategoriesContoller@getCategoriesList');
 Route::get('/allschools', 'CategoriesContoller@allschools');
 Route::get('/schools/{school_id}', 'CategoriesContoller@getschool');
 Route::get('/schools/{school_id}/{topic_id}', 'CategoriesContoller@getTopicbySchool');
 
+Route::post('/{category}/create', 'TopicsController@createtopic');
 Route::get('/{category}/{id}', 'CategoriesContoller@getsingletopic');
 Route::post('/{category}/{id}/comments', 'TopicsController@storepost');
 
@@ -33,7 +36,7 @@ Route::get('/about/topic', 'CategoriesContoller@topic');
 
 
 //Route::get('/home', 'HomeController@index')->name('home');
-    Auth::routes();
+ //   Auth::routes();
     Route::get('/register', 'RegistrationController@create');
     Route::post('/register', 'RegistrationController@store');
     Route::get('/login', 'SessionsController@create');
@@ -42,3 +45,6 @@ Route::get('/about/topic', 'CategoriesContoller@topic');
     Route::get('/logout', 'SessionsController@destroy');
 
     Route::get('/{category}', 'CategoriesContoller@getcategoryindex');
+   // Route::get('/search', 'SearchController@search');
+
+    Route::get('/livesearch/results/{str}', 'SearchController@livesearchResults');

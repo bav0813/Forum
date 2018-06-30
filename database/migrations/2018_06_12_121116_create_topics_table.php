@@ -18,6 +18,7 @@ class CreateTopicsTable extends Migration
             $table->integer('category')->unsigned();
             $table->integer('subcategory')->unsigned();
             $table->boolean('is_active');
+            $table->integer('user_id');
             $table->timestamps();
         });
     }

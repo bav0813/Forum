@@ -17,6 +17,10 @@ class CategoriesContoller extends Controller
 {
     private $categories,$subcat,$cnt_subcat,$topics,$cnt_topics,$cnt_subcatcomm,$get_subcatcomm ;
 
+
+
+
+
     public function getCategoriesList()
     {
 
@@ -106,11 +110,15 @@ class CategoriesContoller extends Controller
     public function getTopics(){
 
 
-            $this->topics=DB::select('select topics.id as tpc_id,description,category,comment  from topics  left join (
-            select * from
-            (select * from comments order by `topic_id`, comments.created_at desc) x group by `topic_id`) z on topics.id=z.topic_id');
+//            $this->topics=DB::select('select topics.id as tpc_id,description,category,comment  from topics  left join (
+//            select * from
+//            (select * from comments order by `topic_id` desc, comments.created_at desc) x group by `topic_id`) z on topics.id=z.topic_id');
      //   }
 //dd($this->topics);
+
+        $this->topics=DB::select('select topics.id as tpc_id,description,category,comment  from topics  left join (
+            select * from
+            (select * from comments order by `topic_id` desc, comments.created_at desc) x group by `topic_id`) z on topics.id=z.topic_id order by topic_id desc');
         return $this->topics;
     }
 
@@ -185,35 +193,36 @@ class CategoriesContoller extends Controller
     {
         $cat=DB::table ('categories')->where('description_en',$category)->first();
         //test
-        if (!Auth::check()){
-            $user=\App\User::whereName("Anonymous")->firstOrFail();
-
-
-        }
-        else {
-            $user = Auth()->user();
-
-
-        }
+//        if (!Auth::check()){
+//            $user=\App\User::whereName("Anonymous")->firstOrFail();
+//
+//
+//        }
+//        else {
+//            $user = Auth()->user();
+//
+//
+//        }
 
 
         $topics=DB::table ('topics')->where('category',$cat->id)->where('id',$id)->get(); //works
         $comments=DB::table ('comments')
             ->join('topics','topics.id','=','comments.topic_id')
             ->join('users','users.id','=','comments.user_id')
-            ->select ('topics.*','comments.*','users.name')
+            ->select ('topics.*','comments.*','users.name','users.created_at as usr_created')
             ->where('topics.id',$id)
             ->where ('comments.is_active',1)
             ->orderBy ('comments.created_at','asc')
             ->get();
-       // dd ($comments);
+      // dd ($topics->get('0'));
 
         return view('topic')->with([
-            'topics' => $topics[0],
+            'topics' => $topics->get('0'),
             'category'=>$cat->description,
             'comments'=>$comments,
             'category_en'=>$cat->description_en,
-            'user'=>$user]);
+        //    'user'=>$user
+        ]);
 
     }
 
@@ -221,26 +230,27 @@ class CategoriesContoller extends Controller
     public function getTopicbySchool($school_id,$topic_id)
     {
         $cat=1;
-        $user = Auth()->user();
+      //  $user = Auth()->user();
 
 
         $topics=DB::table ('topics')->where('category',1)->where('id',$topic_id)->get(); //works
         $comments=DB::table ('comments')
             ->join('topics','topics.id','=','comments.topic_id')
             ->join('users','users.id','=','comments.user_id')
-            ->select ('topics.*','comments.*','users.name')
+            ->select ('topics.*','comments.*','users.name','users.created_at as usr_created')
             ->where('topics.id',$topic_id)
             ->where ('comments.is_active',1)
             ->orderBy ('comments.created_at','asc')
             ->get();
-        //dd ($user);
+        //dd ($comments);
 
         return view('topic')->with([
             'topics' => $topics[0],
             'category'=>$cat,
             'comments'=>$comments,
             'category_en'=>'schools',
-            'user'=>$user]);
+        //    'user'=>$user
+        ]);
 
     }
 
