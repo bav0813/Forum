@@ -19,7 +19,7 @@ class TopicsController extends Controller
     {
         //      $this->middleware('auth')->only('store'); //works
 
-        $this->middleware('auth')->except ('storepost','search');
+        $this->middleware('auth')->except ('storepost');
 
     }
 
@@ -42,11 +42,13 @@ class TopicsController extends Controller
 
         }
 
-        if ($category=='politics') {
+        if ($user->name=='Anonymous') {
             $is_active=0;
         }
         else
             $is_active=1;
+
+      //  dd($user);
 
         Comments::create([
             'comment'=>request ('comment_body'),
@@ -68,7 +70,9 @@ class TopicsController extends Controller
     public function createtopic($category)
     {
 
-
+            if (!Auth::check()) {
+                redirect('/login');
+            }
             $cat = DB::table ( 'categories' )->where ( 'description_en' , $category )->first ();
 //dd($cat);
             Topics::create ( [
@@ -82,6 +86,22 @@ class TopicsController extends Controller
             ] );
             return back ();
         }
+
+    public function createTopicSchools($school_id)
+    {
+//dd ($school_id);
+
+        Topics::create ( [
+            'description' => request ( 'topicname' ),
+            'category'=>1,
+            'subcategory' => $school_id ,
+            'is_active' => '1' ,
+            'user_id' => auth ()->user ()->id
+
+
+        ] );
+        return back ();
+    }
 
 
 }

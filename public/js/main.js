@@ -20,3 +20,60 @@ function showResult(str) {
     xmlhttp.open("GET","/livesearch/"+str,true);
     xmlhttp.send();
 }
+
+
+$(function () {
+    $("input[id^='isactiveuser']").click(function(){
+
+
+        $.ajax({
+            type: "POST",
+            url: "/admin/dashboard/users/"+this.name+'/'+Number(this.checked), //Change
+            data: {
+                "_token": $('#token').val() },
+            //success:alert("done")
+        })
+    });
+});
+
+
+$(function () {
+    $("input[id^='isactivecomment']").click(function(){
+
+        $.ajax({
+            type: "POST",
+            url: "/admin/dashboard/comments/"+this.name+'/'+Number(this.checked), //Change
+            data: {
+                "_token": $('#token').val() },
+            //success:alert("done")
+        })
+    });
+});
+
+
+$(function () {
+    $(".editcomm").click(function () {
+        comment_id = this.id;
+        tmp_id="body_comment_" + comment_id;
+        comment = document.getElementById(tmp_id).innerText;
+        //  alert(comment);
+        $("#myModalcomment").modal('show');
+        $("#comments").val(comment);
+
+        $("#admin_btn_save_comment").click(function () {
+            comment_new=$("#comments").val();
+            $.ajax({
+                type: "POST",
+                url: "/admin/dashboard/comments/edit/" + comment_id + '/' + $("#comments").val(), //Change
+                data: {
+                    "_token": $('#token').val()
+                },
+                success: $("#myModalcomment").modal('hide'),
+
+            });
+            document.getElementById(tmp_id).innerText=comment_new;
+
+        });
+    });
+});
+

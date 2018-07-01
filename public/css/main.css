@@ -186,6 +186,28 @@ tr:hover{
 }
 
 
+/*админка меню*/
+
+.adminbody{
+    background-color: white;
+}
+.navmenu{
+    background-color: #ce8483;
+    height: 100%;
+    width: 30%;
+    float: left;
+    opacity: 1;
+}
+.glavn{
+    margin-left: 550px;
+}
+.admin{
+    opacity: 1;
+}
+.log li a{
+    color: white;
+}
+
 
 
 

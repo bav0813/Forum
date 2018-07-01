@@ -21,6 +21,7 @@ class CreateUsersTable extends Migration
             $table->integer('post_counter')->unsigned();
             $table->boolean('is_active');
             $table->boolean('is_admin');
+            $table->string('avatar');
             $table->timestamps();
           
         });

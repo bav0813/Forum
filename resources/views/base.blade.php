@@ -38,7 +38,8 @@
             <li class="nav-item"><a class="nav-link" href="/admin/dashboard">{{Auth::user()->name}}{{'@'}}ADMIN</a></li>
             <li class="nav-item"><a class="nav-link" href="/logout"><span class="fa fa-log-out"></span> Logout</a></li>
             @elseif (Auth::check ())
-            <li class="nav-item"><a class="nav-link" href="#">{{Auth::user()->name}}</a></li>
+                <li><a class="nav-item" href="/profile">Личный кабинет</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">{{Auth::user()->name}}</a></li>
             <li class="nav-item"><a class="nav-link" href="/logout"><span class="fa fa-log-out"></span> Logout</a></li>
             @else 
 

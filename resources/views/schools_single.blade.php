@@ -14,7 +14,7 @@
             <col class="col4">
             <tr>
                 <th>Обсуждение школ</th>
-                <th>Темы</th>
+                <th></th>
                 <th>Сообщения</th>
                 <th>Последнее сообщение</th>
             </tr>
@@ -23,11 +23,13 @@
                     <td><a href="/schools/{{$topic->subcategory}}/{{$topic->id}}">{!!$topic->description!!}</a></td>
                     {{--<td><a href="{{ url('/about') }}">Школа 200</a></td>--}}
 
-                    <td>500</td>
-                    <td>8000</td>
-                    <td>Re: Part time linux user
-                        by phd21 View the latest post
-                        Fri Jun 15, 2018 9:28 pm</td>
+                    <td></td>
+                    <td> @foreach ($cnt_posts as $cnt_post)
+                            @if ($cnt_post->topic_id==$topic->id) {{$cnt_post->cnt_comm}}
+                            @endif
+                        @endforeach
+                    </td>
+                    <td>{{$topic->comment}}</td>
                 </tr>
             @endforeach
         </table>
@@ -36,7 +38,14 @@
 
     {{$topics->links("pagination::bootstrap-4")}}
 
-
+    <div class="new topic">
+        <form  method="get" action="/createtopicschools/{{$topic->subcategory}}">
+            <input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
+            {{ csrf_field() }}
+            <input type="text" name="topicname">
+            <button type="submit">Создать тему</button>
+        </form>
+    </div>
 
 
 @endsection

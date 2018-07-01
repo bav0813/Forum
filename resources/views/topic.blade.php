@@ -37,6 +37,7 @@
                     @foreach($comments as $comment )
                         <tr>
                             <td class="authorab">  <h5 class="authorname">{{$comment->name}}</h5>
+                                <p>@if (count ($comment->avatar)) <img src="{{asset ('images/')}}/{{$comment->avatar}}" width="200" height="150"> @endif</p>
                                 <p>Зарегестрирован: {{(new DateTime ($comment->usr_created))->format('d.m.Y ')}}</p>
                                 <p>Сообщения:</p></td>
 

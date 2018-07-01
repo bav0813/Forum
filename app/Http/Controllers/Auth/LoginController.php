@@ -23,6 +23,7 @@
          */
         protected $redirectTo = '/';
 
+
         /**
          * Create a new controller instance.
          *
@@ -31,6 +32,8 @@
         public function __construct()
         {
             $this->middleware ( 'guest' )->except ( 'logout' );
+
+
         }
         protected function validateLogin(Request $request)
         {
@@ -39,5 +42,8 @@
             } ) ,] , 'password' => 'required' ,] );
 
         }
+
+
+
 
     }

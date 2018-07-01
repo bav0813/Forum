@@ -60,9 +60,21 @@ class SearchController extends Controller
             ->limit(5)
             ->get();
 
+        $articles[1]=DB::table('subcategories')
+            //->leftjoin ('comments','comments.topic_id','=','topics.id')
+            ->join('categories','categories.id','=','subcategories.category_id')
+            ->select('subcategories.id as subcat_id','subcategories.*','categories.description_en')
+            ->where('subcategories.description','LIKE','%'.$query.'%')
+            ->limit(5)
+            ->get();
+
         foreach ($articles[0] as $key => $article){
             $resp.="<a href='/$article->description_en/$article->topic_id'>".$article->description.'</a><br>';
         }
+        foreach ($articles[1] as $key => $article){
+            $resp.="<a href='/schools/$article->subcat_id'>".$article->description.'</a><br>';
+        }
+
 
 
         return response($resp);

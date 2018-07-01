@@ -12,6 +12,7 @@
 
         public function __construct()
         {
+
             $this->middleware('guest',['except'=>'destroy']);
         }
 
@@ -25,18 +26,19 @@
 
 
 
-//    public function store()
-//    {
-//
-//       if (!auth()->attempt(request (['email','password'])))  {
-//           return back()->withErrors([
-//               'message'=>'Invalid dashboard credentials'
-//               ]);
-//       }
-//
-//       return redirect('/');
-//
-//    }
+    public function store()
+    {
+
+       if (!auth()->attempt(request (['email','password'])))  {
+           return back()->withErrors([
+               'message'=>'Invalid dashboard credentials'
+               ]);
+       }
+
+
+       return redirect('/');
+
+    }
 
 
 

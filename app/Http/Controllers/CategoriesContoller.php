@@ -80,7 +80,7 @@ class CategoriesContoller extends Controller
             $this->cnt_subcatcomm = DB::select('SELECT topic_id,subcategories.id as subcat_id, COUNT(topic_id) as sbcomm
                 FROM comments join topics on comments.topic_id=topics.id
                 join subcategories on topics.subcategory=subcategories.id
-                where topics.category=1  
+                where (topics.category=1)  
                 GROUP BY subcategories.id');
        // }
        // dd($this->cnt_subcatcomm);
@@ -96,7 +96,7 @@ class CategoriesContoller extends Controller
             (SELECT topic_id,subcategories.id as subcat_id,comments.comment
             FROM comments join topics on comments.topic_id=topics.id
             join subcategories on topics.subcategory=subcategories.id
-            where topics.category=1
+            where topics.category=1  
             order by comments.created_at desc) x  
             group by x.subcat_id');
         // }
@@ -146,16 +146,22 @@ class CategoriesContoller extends Controller
 
         $topics=DB::table('topics')
             ->join('subcategories','subcategories.id','=','topics.subcategory')
-            ->select('topics.*','subcategories.description as sub_descr')
+           // ->join('users','topics.user_id','=','users.id')
+              ->leftjoin('comments','comments.topic_id','=','topics.id')
+            ->select('topics.*','subcategories.description as sub_descr','comments.comment')
             ->where('subcategory',$id)
+            ->groupby('topics.id')
             ->paginate(5);
+
         $sub_descr=DB::table('topics')
             ->join('subcategories','subcategories.id','=','topics.subcategory')
             ->select('subcategories.description')
             ->where('subcategory',$id)
             ->first();
+        $cnt_posts=DB::select('SELECT topic_id, COUNT(topic_id) as cnt_comm FROM comments
+     GROUP BY topic_id');
 
-
+//dd ($sub_descr);
 
         if (!isset($sub_descr->description))
         {
@@ -167,7 +173,7 @@ class CategoriesContoller extends Controller
         return view('schools_single')->with([
             'topics'=> $topics,
             'sub_descr'=>$sub_descr,
-
+            'cnt_posts'=>$cnt_posts
             ]);
 
     }
@@ -191,7 +197,8 @@ class CategoriesContoller extends Controller
 
     public function getsingletopic($category,$id)
     {
-        $cat=DB::table ('categories')->where('description_en',$category)->first();
+        $cat=DB::table ('categories')->
+        where('description_en',$category)->first();
         //test
 //        if (!Auth::check()){
 //            $user=\App\User::whereName("Anonymous")->firstOrFail();
@@ -209,7 +216,7 @@ class CategoriesContoller extends Controller
         $comments=DB::table ('comments')
             ->join('topics','topics.id','=','comments.topic_id')
             ->join('users','users.id','=','comments.user_id')
-            ->select ('topics.*','comments.*','users.name','users.created_at as usr_created')
+            ->select ('topics.*','comments.*','users.name','users.created_at as usr_created','users.avatar')
             ->where('topics.id',$id)
             ->where ('comments.is_active',1)
             ->orderBy ('comments.created_at','asc')
@@ -237,7 +244,7 @@ class CategoriesContoller extends Controller
         $comments=DB::table ('comments')
             ->join('topics','topics.id','=','comments.topic_id')
             ->join('users','users.id','=','comments.user_id')
-            ->select ('topics.*','comments.*','users.name','users.created_at as usr_created')
+            ->select ('topics.*','comments.*','users.name','users.created_at as usr_created','users.avatar')
             ->where('topics.id',$topic_id)
             ->where ('comments.is_active',1)
             ->orderBy ('comments.created_at','asc')
@@ -245,7 +252,8 @@ class CategoriesContoller extends Controller
         //dd ($comments);
 
         return view('topic')->with([
-            'topics' => $topics[0],
+            //'topics' => $topics[0],
+            'topics' => $topics->get(0),
             'category'=>$cat,
             'comments'=>$comments,
             'category_en'=>'schools',
