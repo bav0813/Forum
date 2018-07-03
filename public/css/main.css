@@ -1,10 +1,12 @@
+*{
+    font-size: 14px;
+}
 body{
       background-color: #E4FFC9;
 }
 .nav{
   color: white;
 font-family: 'Marck Script', cursive;
-  font-size: 28px;
 }
 table{
   margin:10px;
@@ -46,6 +48,7 @@ th{
 }
 .nav-link{
    color: white;
+    font-size: 22px;
 }
 
 .navbar{
@@ -192,11 +195,18 @@ tr:hover{
     background-color: white;
 }
 .navmenu{
-    background-color: #ce8483;
+    background-color: white;
     height: 100%;
     width: 30%;
     float: left;
     opacity: 1;
+    border: 1px solid grey;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+}
+.navmenu .navbar-nav .nav-item .nav-link:hover{
+    background-color: lightblue;
+    text-decoration: none;
+
 }
 .glavn{
     margin-left: 550px;
@@ -207,6 +217,10 @@ tr:hover{
 .log li a{
     color: white;
 }
+.navmenu .navbar-nav .nav-item .nav-link{
+    color: black;
+}
+
 
 
 

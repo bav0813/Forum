@@ -51,7 +51,7 @@ class TopicsController extends Controller
       //  dd($user);
 
         Comments::create([
-            'comment'=>request ('comment_body'),
+            'comment'=>htmlspecialchars (request ('comment_body')),
             'topic_id'=>$id,
             'is_active'=>$is_active,
             // 'user_id'=>auth()->user()->id
@@ -76,7 +76,7 @@ class TopicsController extends Controller
             $cat = DB::table ( 'categories' )->where ( 'description_en' , $category )->first ();
 //dd($cat);
             Topics::create ( [
-                'description' => request ( 'topicname' ),
+                'description' => htmlspecialchars (request ( 'topicname' )),
                 'category' => $cat->id ,
                 'is_active' => '1' ,
                 'user_id' => auth ()->user ()->id
@@ -92,7 +92,7 @@ class TopicsController extends Controller
 //dd ($school_id);
 
         Topics::create ( [
-            'description' => request ( 'topicname' ),
+            'description' => htmlspecialchars (request ( 'topicname' )),
             'category'=>1,
             'subcategory' => $school_id ,
             'is_active' => '1' ,

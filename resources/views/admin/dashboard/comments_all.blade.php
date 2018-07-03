@@ -18,6 +18,8 @@
                     <th scope="col">Created At</th>
                     <th scope="col">Comment</th>
                     <th scope="col">is_active</th>
+                    <th scope="col">Edit</th>
+
                 </tr>
                 </thead>
                 <tbody>
@@ -39,7 +41,7 @@
         </div>
 
     </form>
-
+{{$comments->links("pagination::bootstrap-4")}}
     <br>
     <!— Modal —>
     <div class="modal fade" id="myModalcomment" role="dialog">

@@ -24,18 +24,14 @@
 </head>
 <body class="adminbody">
 
-<nav class="navbar navbar-expand-sm admin" >
-    {{--<div class="container">--}}
 
-        {{--<h1>Administrator Dashboard</h1>--}}
+<nav class="navbar navbar-expand-sm justify-content-center admin" >
 
-        {{--  <div class="navbar-header">--}}
 
-                  {{--<h1>Admin Dashboard</h1>--}}
-          {{--</div>--}}
 
-    {{--</div>--}}
-    <h1>Admin Dashboard</h1>
+           <h1>Admin Dashboard</h1>
+
+
 
 
         <ul class="navbar-nav  mr-auto glavn">
@@ -50,7 +46,7 @@
 
             {{--@if (Auth::check () && Auth::user()->is_admin)--}}
                 <li><a class="nav-link" href="/admin/dashboard">{{Auth::user()->name}}{{'@'}}ADMIN</a></li>
-                <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+                <li><a class="nav-link" href="/logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
             {{--@elseif (Auth::check ())--}}
                 {{--<li><a class="nav-link" href="#">{{Auth::user()->name}}</a></li>--}}
                 {{--<li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>--}}
@@ -138,7 +134,7 @@
 
 
 <footer class="text-center">
-    <p>&copy Copyright NEWS</p>
+    <p>&copy Copyright Bychkovsky Andrey</p>
 </footer>
 
 

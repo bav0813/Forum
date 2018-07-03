@@ -39,5 +39,6 @@
 
     </form>
     <br>
+    {{$comments->links("pagination::bootstrap-4")}}
 
 @endsection

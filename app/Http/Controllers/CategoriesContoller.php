@@ -116,7 +116,7 @@ class CategoriesContoller extends Controller
      //   }
 //dd($this->topics);
 
-        $this->topics=DB::select('select topics.id as tpc_id,description,category,comment  from topics  left join (
+        $this->topics=DB::select('select topics.id as tpc_id,description,category,subcategory,comment  from topics  left join (
             select * from
             (select * from comments order by `topic_id` desc, comments.created_at desc) x group by `topic_id`) z on topics.id=z.topic_id order by topic_id desc');
         return $this->topics;
@@ -136,8 +136,21 @@ class CategoriesContoller extends Controller
 
     public function allschools()
     {
-        $school = Subcategories::paginate(5);
-        return view('schools')->with('school', $school);
+        $school = Subcategories::paginate(5);// works
+      //  return view('schools')->with('school', $school);
+          $school_topics=DB::select('select * from 
+                    (select topics.subcategory,max(topics.id) as max_tid ,count(topics.subcategory) as cnt_sbct 
+                    from topics
+                    where topics.category=1
+                    group by topics.subcategory) x
+                    join topics on x.max_tid=topics.id');
+        //  $this->getTopics ();
+        $this->cntTop5SubCatComments ();
+      //    dd($this->cnt_subcatcomm);
+        return view('schools')->with([
+            'school'=> $school,
+            'school_topics'=>$school_topics,
+            'cnt_subcatcomm'=>$this->cnt_subcatcomm]);
 
     }
 
@@ -146,33 +159,36 @@ class CategoriesContoller extends Controller
 
         $topics=DB::table('topics')
             ->join('subcategories','subcategories.id','=','topics.subcategory')
+            ->join('categories','topics.category','=','categories.id')
            // ->join('users','topics.user_id','=','users.id')
               ->leftjoin('comments','comments.topic_id','=','topics.id')
-            ->select('topics.*','subcategories.description as sub_descr','comments.comment')
+            ->select('topics.*','subcategories.description as sub_descr','comments.comment','categories.description as cat_descr')
             ->where('subcategory',$id)
             ->groupby('topics.id')
             ->paginate(5);
 
-        $sub_descr=DB::table('topics')
+     /*works1   $sub_descr=DB::table('topics')
             ->join('subcategories','subcategories.id','=','topics.subcategory')
             ->select('subcategories.description')
             ->where('subcategory',$id)
-            ->first();
+            ->first(); */
         $cnt_posts=DB::select('SELECT topic_id, COUNT(topic_id) as cnt_comm FROM comments
      GROUP BY topic_id');
 
-//dd ($sub_descr);
+//dd ($topics->get(0)->sub_descr);
 
-        if (!isset($sub_descr->description))
+       /* works1 if (!isset($sub_descr->description))
         {
             $sub_descr='';
         }
         else
-            $sub_descr=$sub_descr->description;
+            $sub_descr=$sub_descr->description;  */
        // dd($topics);
         return view('schools_single')->with([
             'topics'=> $topics,
-            'sub_descr'=>$sub_descr,
+            //'sub_descr'=>$sub_descr, works1
+            'sub_descr'=>$topics->get(0)->sub_descr,
+            'cat_descr'=>$topics->get(0)->cat_descr,
             'cnt_posts'=>$cnt_posts
             ]);
 
@@ -187,12 +203,16 @@ class CategoriesContoller extends Controller
                 ->select('topics.*','categories.description_en','categories.description as cat_descr')
                 ->where('categories.description_en',$id)
                 ->paginate(5);
+        $this->cntTopics ();
+        $this->getTopics();
 
-//dd($topics);
+//dd($this->topics);
         return view('categories')->with([
             'topics'=> $topics,
             'cat_en'=>$id,
-            'cat_ru'=>$topics[0]->cat_descr]);
+            'cat_ru'=>$topics[0]->cat_descr,
+            'cnt_topics'=>$this->cnt_topics,
+            'subcatcomms'=>$this->topics]);
     }
 
     public function getsingletopic($category,$id)

@@ -4,7 +4,7 @@
 
 
     {{--<h1>Обсуждение школ/{{$topics[0]->sub_descr}}</h1>--}}
-    <h1>Обсуждение школ/{{$sub_descr}}</h1>
+    <h3><a href="/allschools/">{{$cat_descr}}/</a>{{$sub_descr}}</h3>
 
     <div class="category">
         <table border="1">

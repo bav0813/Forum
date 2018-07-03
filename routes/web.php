@@ -38,6 +38,10 @@
 
     });
 
+//    Route::get('password/email', 'PasswordController@getEmail');
+//    Route::post('password/email', 'PasswordController@postEmail');
+//    Route::get('password/reset/{token}', 'PasswordController@getReset');
+//    Route::post('password/reset', 'Auth\ResetPasswordController@postReset');
 
     Route::get('/livesearch/{str}', 'SearchController@livesearch');
 
@@ -65,7 +69,7 @@ Route::get('/about/topic', 'CategoriesContoller@topic');
 
 
 //Route::get('/home', 'HomeController@index')->name('home');
- //   Auth::routes();
+    Auth::routes();
     Route::get('/register', 'RegistrationController@create');
     Route::post('/register', 'RegistrationController@store');
     Route::get('/login', 'SessionsController@create');

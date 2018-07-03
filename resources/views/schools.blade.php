@@ -21,11 +21,25 @@
                     <td><a href="/schools/{{$schools->id}}">{!!$schools->description!!}</a></td>
                     {{--<td><a href="{{ url('/about') }}">Школа 200</a></td>--}}
 
-                    <td>500</td>
-                    <td>8000</td>
-                    <td>Re: Part time linux user
-                        by phd21 View the latest post
-                        Fri Jun 15, 2018 9:28 pm</td>
+                    @foreach ($school_topics as $sch_top)
+                             @if ($schools->id==$sch_top->subcategory)
+                                    <td>{{$sch_top->cnt_sbct}}</td>
+
+                            <td>@foreach ($cnt_subcatcomm as $sbctcomm)
+                                       @if ($sch_top->subcategory==$sbctcomm->subcat_id)
+                                    {{$sbctcomm->sbcomm}}
+
+                                        @endif
+                                    @endforeach
+                            </td>
+
+                                    <td>Re: Part time linux user
+                                        by phd21 View the latest post
+                                        Fri Jun 15, 2018 9:28 pm</td>
+
+
+                                @endif
+                    @endforeach
                 </tr>
             @endforeach
         </table>

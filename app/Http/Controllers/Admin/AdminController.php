@@ -41,7 +41,7 @@ class AdminController extends Controller
     public function adminComments()
     {
         //  $comments = Comments::orderBy('created_at', 'desc')->get();
-        $comments = Comments::where('is_active',0)->orderBy('created_at', 'desc')->get();
+        $comments = Comments::where('is_active',0)->orderBy('created_at', 'desc')->paginate (10);
 
 
         return view('admin.dashboard.comments')->with('comments',$comments);
@@ -49,7 +49,7 @@ class AdminController extends Controller
 
     public function adminCommentsAll()
     {
-        $comments = Comments::orderBy('created_at', 'desc')->get();
+        $comments = Comments::orderBy('created_at', 'desc')->paginate (10);
         //$comments = Comments::where('is_active',0)->orderBy('created_at', 'desc')->get();
 
 
