@@ -33,16 +33,22 @@
     <h1 id='sch'>Школы Киева</h1>
       </ul>
 
+
         <ul class="nav navbar-nav navbar-right">
            @if (Auth::check() && Auth::user()->is_admin)
+                <li class="nav-item"><a class="nav-link" href="{{ url('/rules') }}">Правила</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url('/help') }}">Тех.Поддержка</a></li>
             <li class="nav-item"><a class="nav-link" href="/admin/dashboard">{{Auth::user()->name}}{{'@'}}ADMIN</a></li>
             <li class="nav-item"><a class="nav-link" href="/logout"><span class="fa fa-log-out"></span> Logout</a></li>
             @elseif (Auth::check ())
-                <li><a class="nav-item" href="/profile">Личный кабинет</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url('/rules') }}">Правила</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url('/help') }}">Тех.Поддержка</a></li>
+                <li class="nav-item"><a class="nav-link" href="/profile">Личный кабинет</a></li>
                 <li class="nav-item"><a class="nav-link" href="#">{{Auth::user()->name}}</a></li>
             <li class="nav-item"><a class="nav-link" href="/logout"><span class="fa fa-log-out"></span> Logout</a></li>
-            @else 
-
+            @else
+                <li class="nav-item"><a class="nav-link" href="{{ url('/rules') }}">Правила</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url('/help') }}">Тех.Поддержка</a></li>
              <li class="nav-item"><a class="nav-link" href="/register"><span class="fa fa-user"></span>Register </a></li> 
             <li class="nav-item"><a class="nav-link" href="/login"><span class="fa fa-log-in"></span> Login</a></li>
       @endif 

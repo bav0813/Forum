@@ -38,6 +38,8 @@
         </table>
     </div>
 
+
+    @if (Auth::check())
     <div class="new topic">
         <form  method="post" action="{{$cat_en}}/create">
             <input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
@@ -46,6 +48,21 @@
             <button type="submit">Создать тему</button>
         </form>
     </div>
+
+    @endif
+
+    @if (count($errors) > 0)
+        <div class="alert alert-danger">
+            There were some problems while creating topic:
+            <br />
+            <ul>
+
+                    <li>{{ $errors }}</li>
+            </ul>
+        </div>
+    @endif
+
+
 
 
     {{$topics->links("pagination::bootstrap-4")}}

@@ -48,7 +48,16 @@
 
 
         </form>
-
-    </div>
+        @if (count($errors) > 0)
+            <div class="alert alert-danger">
+                There were some problems registering your account:
+                <br />
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif    </div>
 
 @endsection

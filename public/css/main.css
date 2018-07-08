@@ -220,7 +220,24 @@ tr:hover{
 .navmenu .navbar-nav .nav-item .nav-link{
     color: black;
 }
-
+.rules{
+    border: 1px solid green;
+    margin: 5px;
+    padding: 10px;
+    border-radius: 5%;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    text-align: justify;
+}
+.help{
+    border: 1px solid green;
+    margin: 5px;
+    padding: 20px;
+    border-radius: 5%;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+}
+.help a{
+    font-size: 20px;
+}
 
 
 

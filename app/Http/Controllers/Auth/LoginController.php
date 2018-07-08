@@ -37,7 +37,8 @@
         }
         protected function validateLogin(Request $request)
         {
-            $this->validate ( $request , [$this->username () => ['required' , Rule::exists ( 'users' )->where ( function ($query) {
+            $this->validate ( $request ,
+                [$this->username () => ['required' , Rule::exists ( 'users' )->where ( function ($query) {
                 $query->where ( 'is_active' , '1' );
             } ) ,] , 'password' => 'required' ,] );
 

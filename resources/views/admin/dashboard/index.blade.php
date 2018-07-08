@@ -75,14 +75,16 @@
         </li>
 
         <li class="nav-item">
+            <a class="nav-link" href="/admin/dashboard/ipban">IPBan</a>
+        </li>
+
+        <li class="nav-item">
             <a class="nav-link" href="/admin/dashboard/users">Users</a>
         </li>
 
 
 
-        <li class="nav-item">
-            <a class="nav-link" href="/admin/dashboard/colors">Colors</a>
-        </li>
+
 
     </ul>
 </nav>
@@ -116,14 +118,14 @@
 {{--</div>--}}
 
 
-<form action="" method="post">
-    <div class="form-group">
-        <textarea class="form-control" name="content" id="input" rows="5"></textarea>
-    </div>
-    {{csrf_field ()}}
+{{--<form action="" method="post">--}}
+    {{--<div class="form-group">--}}
+        {{--<textarea class="form-control" name="content" id="input" rows="5"></textarea>--}}
+    {{--</div>--}}
+    {{--{{csrf_field ()}}--}}
 
 
-</form>
+{{--</form>--}}
 
 {{--<script src="{{asset('js/tinymce/js/tinymce/tinymce.min.js')}}"></script>--}}
 

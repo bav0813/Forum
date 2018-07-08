@@ -4,7 +4,7 @@
 
 
     {{--<h1>Обсуждение школ/{{$topics[0]->sub_descr}}</h1>--}}
-    <h3><a href="/allschools/">{{$cat_descr}}/</a>{{$sub_descr}}</h3>
+    <a href="/allschools/">{{$cat_descr}}/</a>{{$sub_descr}}
 
     <div class="category">
         <table border="1">
@@ -38,6 +38,7 @@
 
     {{$topics->links("pagination::bootstrap-4")}}
 
+    @if (Auth::check())
     <div class="new topic">
         <form  method="get" action="/createtopicschools/{{$topic->subcategory}}">
             <input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
@@ -46,6 +47,20 @@
             <button type="submit">Создать тему</button>
         </form>
     </div>
+    @endif
+
+
+    @if (count($errors) > 0)
+        <div class="alert alert-danger">
+            There were some problems while creating topic:
+            <br />
+            <ul>
+
+                <li>{{ $errors }}</li>
+            </ul>
+        </div>
+    @endif
+
 
 
 @endsection

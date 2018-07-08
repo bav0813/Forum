@@ -53,9 +53,10 @@ class SearchController extends Controller
 //            ->get();
 
         $articles[0]=DB::table('topics')
-            ->leftjoin ('comments','comments.topic_id','=','topics.id')
+           // ->leftjoin ('comments','comments.topic_id','=','topics.id')
             ->join('categories','categories.id','=','topics.category')
             ->select('topics.id as topic_id','topics.*','categories.description_en')
+            ->where('category','<>',1)
             ->where('topics.description','LIKE','%'.$query.'%')
             ->limit(5)
             ->get();
@@ -63,16 +64,18 @@ class SearchController extends Controller
         $articles[1]=DB::table('subcategories')
             //->leftjoin ('comments','comments.topic_id','=','topics.id')
             ->join('categories','categories.id','=','subcategories.category_id')
-            ->select('subcategories.id as subcat_id','subcategories.*','categories.description_en')
+            ->select('subcategories.id as subcat_id','subcategories.*')
             ->where('subcategories.description','LIKE','%'.$query.'%')
             ->limit(5)
             ->get();
+
+       // dd($articles[0]);
 
         foreach ($articles[0] as $key => $article){
             $resp.="<a href='/$article->description_en/$article->topic_id'>".$article->description.'</a><br>';
         }
         foreach ($articles[1] as $key => $article){
-            $resp.="<a href='/schools/$article->subcat_id'>".$article->description.'</a><br>';
+            $resp.="<a href='/schools/$article->subcat_id/'>".$article->description.'</a><br>';
         }
 
 

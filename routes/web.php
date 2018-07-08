@@ -26,6 +26,9 @@
         Route::get('dashboard/comments_all', 'AdminController@adminCommentsAll');
 
         Route::get('dashboard/users', 'AdminController@adminUsersGet');
+        Route::get('dashboard/ipban', 'BanIpController@getallIPbanned');
+
+        Route::post('dashboard/comments/delete/{id}', 'AdminController@deletecomments');
 
 //        Route::get('dashboard/colors', 'AdminController@adminColorsGet');
 //        Route::post('dashboard/colors', 'AdminController@adminColorsSet');
@@ -33,10 +36,15 @@
         Route::post('dashboard/users/{id}/{status}', 'AdminController@renewusers');
         Route::post('dashboard/comments/{id}/{status}', 'AdminController@renewcomments');
         Route::post('dashboard/comments/edit/{id}/{comment}', 'AdminController@editcomments');
+        Route::post('dashboard/admin/dashboard/ipban/addip4ban', 'BanIpController@addIP4ban');
 
         Route::resource('dashboard', 'AdminController');
 
     });
+
+
+    Route::get('/rules', 'PageController@rules');
+    Route::get('/help', 'PageController@help');
 
 //    Route::get('password/email', 'PasswordController@getEmail');
 //    Route::post('password/email', 'PasswordController@postEmail');
@@ -69,11 +77,11 @@ Route::get('/about/topic', 'CategoriesContoller@topic');
 
 
 //Route::get('/home', 'HomeController@index')->name('home');
-    Auth::routes();
+   // Auth::routes();
     Route::get('/register', 'RegistrationController@create');
     Route::post('/register', 'RegistrationController@store');
     Route::get('/login', 'SessionsController@create');
-Route::post('/login', 'SessionsController@store');
+//Route::post('/login', 'SessionsController@store');
     Route::post('/login', 'Auth\LoginController@login')->name('login');;
     Route::get('/logout', 'SessionsController@destroy');
 
@@ -84,4 +92,6 @@ Route::post('/login', 'SessionsController@store');
    // Route::get('/search', 'SearchController@search');
 
     Route::get('/livesearch/results/{str}', 'SearchController@livesearchResults');
+
+
 

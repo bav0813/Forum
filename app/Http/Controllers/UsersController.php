@@ -44,11 +44,7 @@ class UsersController extends Controller
             DB::table('users')
                 ->where('id',$user_id)
                 ->update(['avatar'=>$name]);
-//            $novost->title = $request->title;
-//            $novost->description = $request->descr;
-//            $novost->site_name = 'some_name';
-//            $novost->pics = $name;
-//            $novost->save ();
+//
 
 
             //  $path = $image->storeAs($destinationPath, $name);

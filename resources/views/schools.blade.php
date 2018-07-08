@@ -48,6 +48,16 @@
 
     {{$school->links("pagination::bootstrap-4")}}
 
+@if (count($errors) > 0)
+    <div class="alert alert-danger">
+        There were some problems while creating topic:
+        <br />
+        <ul>
+
+            <li>{{ $errors }}</li>
+        </ul>
+    </div>
+@endif
 
 
 

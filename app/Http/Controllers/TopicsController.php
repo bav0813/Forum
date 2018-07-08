@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Http\Controllers\Admin\BanIpController;
+
 //use DB;
 use Illuminate\Support\Facades\DB;
 
@@ -19,89 +21,101 @@ class TopicsController extends Controller
     {
         //      $this->middleware('auth')->only('store'); //works
 
-        $this->middleware('auth')->except ('storepost');
+        $this->middleware ( 'auth' )->except ( 'storepost' );
 
     }
 
 
-
-
-
-    public function storepost($category,$id)
+    public function storepost($category , $id)
     {
 
         //test
-        if (!Auth::check()){
-            $user=User::whereName("Anonymous")->firstOrFail();
+        if (!Auth::check ()) {
+            $user = User::whereName ( "Anonymous" )->firstOrFail ();
+
+
+        } else {
+            $user = Auth ()->user ();
 
 
         }
-        else {
-            $user = Auth()->user();
+
+        if ($user->name == 'Anonymous') {
+            $is_active = 0;
+        } else
+            $is_active = 1;
+
+        //  dd($user);
+        $ip = $_SERVER['REMOTE_ADDR'];
+        $status = BanIpController::is_banned ( $ip );
+        if (!$status) {
+
+        Comments::create ( ['comment' => htmlspecialchars ( request ( 'comment_body' ) ) , 'topic_id' => $id , 'is_active' => $is_active , // 'user_id'=>auth()->user()->id
+            'user_id' => $user->id , 'ip' => $ip
 
 
+        ] );
+
+        return back ();
+
+        } else {
+            $error = 'user is banned';
+            return back ()->with ( ['errors' => $error] );
         }
 
-        if ($user->name=='Anonymous') {
-            $is_active=0;
-        }
-        else
-            $is_active=1;
-
-      //  dd($user);
-
-        Comments::create([
-            'comment'=>htmlspecialchars (request ('comment_body')),
-            'topic_id'=>$id,
-            'is_active'=>$is_active,
-            // 'user_id'=>auth()->user()->id
-            'user_id'=>$user->id
-
-
-
-        ]);
-
-
-
-        return  back();
     }
 
 
     public function createtopic($category)
     {
 
-            if (!Auth::check()) {
-                redirect('/login');
-            }
+        $ip = $_SERVER['REMOTE_ADDR'];
+
+
+//        if (!Auth::check()) {
+//                redirect('/login');
+//            }
+
+        $status = BanIpController::is_banned ( $ip );
+        //       dd($status);
+
+        if (!$status) {
+
             $cat = DB::table ( 'categories' )->where ( 'description_en' , $category )->first ();
 //dd($cat);
-            Topics::create ( [
-                'description' => htmlspecialchars (request ( 'topicname' )),
-                'category' => $cat->id ,
-                'is_active' => '1' ,
-                'user_id' => auth ()->user ()->id
-                //  'user_id'=>$user->id
+            Topics::create ( ['description' => htmlspecialchars ( request ( 'topicname' ) ) , 'category' => $cat->id , 'is_active' => '1' , 'user_id' => auth ()->user ()->id//  'user_id'=>$user->id
 
 
             ] );
             return back ();
+        } else {
+            $error = 'user is banned';
+            return back ()->with ( ['errors' => $error] );
         }
+    }
 
     public function createTopicSchools($school_id)
     {
 //dd ($school_id);
 
-        Topics::create ( [
-            'description' => htmlspecialchars (request ( 'topicname' )),
-            'category'=>1,
-            'subcategory' => $school_id ,
-            'is_active' => '1' ,
-            'user_id' => auth ()->user ()->id
+        $ip = $_SERVER['REMOTE_ADDR'];
+        $status = BanIpController::is_banned ( $ip );
+
+        if (!$status) {
 
 
-        ] );
-        return back ();
+            Topics::create ( ['description' => htmlspecialchars ( request ( 'topicname' ) ) , 'category' => 1 , 'subcategory' => $school_id , 'is_active' => '1' , 'user_id' => auth ()->user ()->id
+
+
+            ] );
+            return back ();
+
+        } else {
+            $error = 'user is banned';
+            return back ()->with ( ['errors' => $error] );
+        }
+
+
     }
-
 
 }

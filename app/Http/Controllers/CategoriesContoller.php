@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\DB;
 
 class CategoriesContoller extends Controller
 {
-    private $categories,$subcat,$cnt_subcat,$topics,$cnt_topics,$cnt_subcatcomm,$get_subcatcomm ;
+    private $categories,$subcat,$cnt_subcat,$topics,$cnt_topics,$cnt_subcatcomm,$get_subcatcomm,$cnt_user_comments ;
 
 
 
@@ -131,6 +131,14 @@ class CategoriesContoller extends Controller
         return $this->cnt_topics;
     }
 
+    public function cntUserComments(){
+
+        $this->cnt_user_comments=DB::select('select user_id, count(comment) as cnt_comments from comments group by user_id');
+//dd($this->cnt_user_comments);
+
+        return $this->cnt_user_comments;
+    }
+
 
 
 
@@ -217,6 +225,7 @@ class CategoriesContoller extends Controller
 
     public function getsingletopic($category,$id)
     {
+        $this->cntUserComments();
         $cat=DB::table ('categories')->
         where('description_en',$category)->first();
         //test
@@ -241,13 +250,14 @@ class CategoriesContoller extends Controller
             ->where ('comments.is_active',1)
             ->orderBy ('comments.created_at','asc')
             ->get();
-      // dd ($topics->get('0'));
+       //dd ($comments);
 
         return view('topic')->with([
             'topics' => $topics->get('0'),
             'category'=>$cat->description,
             'comments'=>$comments,
             'category_en'=>$cat->description_en,
+        'cnt_user_comments'=>$this->cnt_user_comments,
         //    'user'=>$user
         ]);
 
@@ -257,6 +267,7 @@ class CategoriesContoller extends Controller
     public function getTopicbySchool($school_id,$topic_id)
     {
         $cat=1;
+        $this->cntUserComments();
       //  $user = Auth()->user();
 
 
@@ -277,6 +288,7 @@ class CategoriesContoller extends Controller
             'category'=>$cat,
             'comments'=>$comments,
             'category_en'=>'schools',
+            'cnt_user_comments'=>$this->cnt_user_comments,
         //    'user'=>$user
         ]);
 

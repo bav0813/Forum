@@ -19,7 +19,7 @@
                     <th scope="col">Comment</th>
                     <th scope="col">is_active</th>
                     <th scope="col">Edit</th>
-
+                    <th scope="col">Delete</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -30,7 +30,7 @@
                         <td id="body_comment_{{$comment->id}}">{{ $comment->comment }}</td>
                         <td><input class="form-check-input" type="checkbox" name="{{$comment->id}}" id="isactivecomment{{$comment->id}}"  @if ($comment->is_active) checked @endif></td>
                         <td><button type="button" class="btn btn-primary editcomm" id="{{$comment->id}}">Edit</button></td>
-
+                        <td><button type="button" class="btn btn-primary deletecomm" id="{{$comment->id}}">Delete</button></td>
                     </tr>
                 @endforeach
 
@@ -50,8 +50,8 @@
             <!— Modal content-->
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
                     <h4 class="modal-title">Редактировать комментарий</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
                 <div class="modal-body">
                     <label for="usr">Comment:</label>
@@ -59,6 +59,31 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary" id="admin_btn_save_comment">Сохранить</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+
+    <!— Modal —>
+    <div class="modal fade" id="myModaldelete" role="dialog">
+        <div class="modal-dialog">
+
+            <!— Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Удалить комментарий</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <label for="usr">Comment:</label>
+                    <input type="text" class="form-control" id="comment1">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="admin_btn_delete_comment">Удалить</button>
                     <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
                 </div>
             </div>

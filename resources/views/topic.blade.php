@@ -10,21 +10,6 @@
     {{--@foreach($comments as $comment )--}}
     <div class="container-fluid">
         <div class="row">
-        {{--<div class="aboutauthor">--}}
-            {{--<div class="authorabout">--}}
-                {{--<div class="col-sm-3 aboutauthor">--}}
-                {{--<p class="authorabout">{{$comment->name}}</p>--}}
-                {{--<p>Зарегестрирован: {{$user->created_at->format('d.m.Y ')}}</p>--}}
-                {{--<p>Сообщения:</p>--}}
-            {{--</div>--}}
-
-                {{--<div class="col-sm-8 topic">--}}
-                {{--<p>--}}
-                    {{--{{$comment->comment}}--}}
-                {{--</p>--}}
-            {{--</div>--}}
-
-
 
             <div class="topic">
                 <table border="1" class="topab">
@@ -39,7 +24,11 @@
                             <td class="authorab">  <h5 class="authorname">{{$comment->name}}</h5>
                                 <p>@if (count ($comment->avatar)) <img src="{{asset ('images/')}}/{{$comment->avatar}}" width="200" height="150"> @endif</p>
                                 <p>Зарегестрирован: {{(new DateTime ($comment->usr_created))->format('d.m.Y ')}}</p>
-                                <p>Сообщения:</p></td>
+                                <p>@foreach($cnt_user_comments as $cnt_comment)
+                                       @if ($cnt_comment->user_id==$comment->user_id)
+                                         Сообщений: {{$cnt_comment->cnt_comments}}
+                                       @endif
+                                   @endforeach</p></td>
 
 
                             <td class="sometext">{{$comment->comment}}</td>
@@ -68,7 +57,24 @@
     </div>
 
 </div>
-    </div>
+
+
+        @if (count($errors) > 0)
+            <div class="alert alert-danger">
+                There were some problems while storing comment:
+                <br />
+                <ul>
+
+                    <li>{{ $errors }}</li>
+                </ul>
+            </div>
+    @endif
+
+
+
+
+
+
 
 
 @endsection

@@ -85,6 +85,18 @@ class AdminController extends Controller
 
         return redirect ('/admin/dashboard/comments_all');
     }
+    public function deletecomments(Request $request,$id)
+    {
 
+        $comment = Comments::find($id);
+
+     //   $comment->comment=$msg;
+        $comment->delete();
+        //  dd($comment);
+
+
+
+        return redirect ('/admin/dashboard/comments_all');
+    }
 
 }

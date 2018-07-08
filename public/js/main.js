@@ -77,3 +77,30 @@ $(function () {
     });
 });
 
+
+$(function () {
+    $(".deletecomm").click(function () {
+        comment_id = this.id;
+        tmp_id="body_comment_" + comment_id;
+        comment = document.getElementById(tmp_id).innerText;
+        //  alert(comment);
+        $("#myModaldelete").modal('show');
+        $("#comment1").val(comment);
+
+        $("#admin_btn_delete_comment").click(function () {
+            $.ajax({
+                type: "POST",
+                url: "/admin/dashboard/comments/delete/" + comment_id,
+                data: {
+                    "_token": $('#token').val()
+                },
+                success: $("#myModalcomment").modal('hide'),
+
+
+
+        });
+            location.reload();
+
+        });
+    });
+});
