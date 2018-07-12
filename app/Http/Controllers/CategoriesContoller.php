@@ -24,7 +24,7 @@ class CategoriesContoller extends Controller
     public function getCategoriesList()
     {
 
-        $this->categories=Categories::get();
+        $this->categories=Categories::where('is_active',1)->get();
 //        $cnt=count($this->categories);
         $this->getTop5Subcategories ();
         $this->cntTop5Subcategories();
@@ -207,18 +207,20 @@ class CategoriesContoller extends Controller
       //  $topics = Topics::where('category',$id)->paginate(5);
 
         $topics=DB::table('topics')
-                ->join('categories','categories.id','=','topics.category')
+                ->rightjoin('categories','categories.id','=','topics.category')
                 ->select('topics.*','categories.description_en','categories.description as cat_descr')
                 ->where('categories.description_en',$id)
                 ->paginate(5);
         $this->cntTopics ();
         $this->getTopics();
 
-//dd($this->topics);
+//dd(count($topics));
+
         return view('categories')->with([
             'topics'=> $topics,
             'cat_en'=>$id,
-            'cat_ru'=>$topics[0]->cat_descr,
+            'cat_ru'=>$topics->get(0)->cat_descr,
+        //    'cat_ru'=>$cat_ru,
             'cnt_topics'=>$this->cnt_topics,
             'subcatcomms'=>$this->topics]);
     }

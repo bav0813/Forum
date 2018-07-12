@@ -58,7 +58,6 @@ th{
      width:99%;
      border-radius: 4px;
      height:100px;
-     margin-bottom: 30px;
      margin-top: 10px;
  }
 .nav-link:hover{
@@ -71,6 +70,7 @@ text-decoration: underline;
 }
 .poiskbtn{
     background-color: #aca;
+    color: white;
 }
 td a{
     color: black;
@@ -79,8 +79,12 @@ td a{
 td a:hover{
     text-decoration: none;
 }
+td{
+    height: 50px;
+}
 th a{
     color: white;
+    padding-left: 10px;
 }
 th a:hover{
     text-decoration: none;
@@ -93,6 +97,14 @@ th a:hover{
     font-size: 11px;
     padding-left: 10px;
 }
+
+tr td:nth-child(2) {
+    text-align: center;
+}
+tr td:nth-child(3) {
+    text-align: center;
+}
+
 /*.topic{*/
     /*margin-top: 0px;*/
     /*margin-left: 10px;*/
@@ -170,6 +182,9 @@ th a:hover{
 .topab td{
     border-left: 1px solid green;
 }
+.topab tr td{
+    text-align: justify;
+}
 .sometext{
     vertical-align: top;
     padding: 5px;
@@ -187,6 +202,26 @@ tr:hover{
     font-size: 20px;
     background-color: white;
 }
+.navbarr{
+    margin-top: 0px;
+    height: 30px;
+    background-color: #aca;
+    opacity: 1;
+    margin-top: 5px;
+}
+.navbar-nav .nav-item .nav-link{
+    font-size: 14px;
+}
+.prof{
+    margin-left: 25px;
+    border: 1px solid green;
+    padding: 20px;
+    width: 600px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    background-color: #F0FFF0;
+    margin-bottom: 50px;
+}
+
 
 
 /*админка меню*/
@@ -237,6 +272,9 @@ tr:hover{
 }
 .help a{
     font-size: 20px;
+}
+.new_ipban{
+    margin-left: 50px;
 }
 
 

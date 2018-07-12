@@ -36,6 +36,11 @@
         Route::post('dashboard/users/{id}/{status}', 'AdminController@renewusers');
         Route::post('dashboard/comments/{id}/{status}', 'AdminController@renewcomments');
         Route::post('dashboard/comments/edit/{id}/{comment}', 'AdminController@editcomments');
+        Route::get('dashboard/categories', 'AdminController@getCategories');
+        Route::post('dashboard/categories/addcategory', 'AdminController@addCategories');
+        Route::post('dashboard/category/{id}/{status}', 'AdminController@renewcategory');
+
+
         Route::post('dashboard/admin/dashboard/ipban/addip4ban', 'BanIpController@addIP4ban');
 
         Route::resource('dashboard', 'AdminController');

@@ -40,12 +40,12 @@
 
     </form>
 
-    <div class="new ipban">
+    <div class="new_ipban">
         <form  method="post" action="admin/dashboard/ipban/addip4ban">
             <input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
             {{ csrf_field() }}
             <input type="text" name="hostip">
-            <button type="submit">Добавить хост</button>
+            <button type="submit" class="btn poiskbtn">Добавить хост</button>
         </form>
     </div>
 

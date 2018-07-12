@@ -6,7 +6,7 @@
     <form method="post">
         <input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
         {{ csrf_field() }}
-        <div class="col-md-8">
+        <div class="col-md-10">
 
 
 

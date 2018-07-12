@@ -104,3 +104,17 @@ $(function () {
         });
     });
 });
+
+
+$(function () {
+    $("input[id^='isactivecategory']").click(function(){
+
+        $.ajax({
+            type: "POST",
+            url: "/admin/dashboard/category/"+this.name+'/'+Number(this.checked), //Change
+            data: {
+                "_token": $('#token').val() },
+            //success:alert("done")
+        })
+    });
+});
