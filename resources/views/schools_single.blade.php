@@ -40,7 +40,9 @@
 
     @if (Auth::check())
     <div class="new topic">
-        <form  method="get" action="/createtopicschools/{{$topic->subcategory}}">
+        <form  method="get" action="/createtopicschools/{{$subcat_id}}">
+            {{--<form  method="post" action="createtopicschools">--}}
+
             <input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
             {{ csrf_field() }}
             <input type="text" name="topicname">

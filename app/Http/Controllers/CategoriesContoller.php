@@ -35,7 +35,7 @@ class CategoriesContoller extends Controller
 
         //  dd($this->cnt_subcat);
 
-        //dd($this->categories);
+        //dd($this->subcat);
 
         return view('main')->with ([
             'categories'=>$this->categories,
@@ -80,7 +80,7 @@ class CategoriesContoller extends Controller
             $this->cnt_subcatcomm = DB::select('SELECT topic_id,subcategories.id as subcat_id, COUNT(topic_id) as sbcomm
                 FROM comments join topics on comments.topic_id=topics.id
                 join subcategories on topics.subcategory=subcategories.id
-                where (topics.category=1)  
+                where (topics.category=1 and comments.is_active=1)  
                 GROUP BY subcategories.id');
        // }
        // dd($this->cnt_subcatcomm);
@@ -96,7 +96,7 @@ class CategoriesContoller extends Controller
             (SELECT topic_id,subcategories.id as subcat_id,comments.comment
             FROM comments join topics on comments.topic_id=topics.id
             join subcategories on topics.subcategory=subcategories.id
-            where topics.category=1  
+            where topics.category=1  and comments.is_active=1
             order by comments.created_at desc) x  
             group by x.subcat_id');
         // }
@@ -125,7 +125,7 @@ class CategoriesContoller extends Controller
     public function cntTopics(){
 
         $this->cnt_topics=DB::select('SELECT topic_id, COUNT(topic_id) as cnt_comm FROM comments
-     GROUP BY topic_id');
+      where comments.is_active=1 GROUP BY topic_id');
 //dd($this->cnt_topics);
 
         return $this->cnt_topics;
@@ -152,13 +152,14 @@ class CategoriesContoller extends Controller
                     where topics.category=1
                     group by topics.subcategory) x
                     join topics on x.max_tid=topics.id');
-        //  $this->getTopics ();
+          $this->getTopics ();
         $this->cntTop5SubCatComments ();
-      //    dd($this->cnt_subcatcomm);
+       //   dd($this->topics);
         return view('schools')->with([
             'school'=> $school,
             'school_topics'=>$school_topics,
-            'cnt_subcatcomm'=>$this->cnt_subcatcomm]);
+            'cnt_subcatcomm'=>$this->cnt_subcatcomm,
+            'subcatcomms'=>$this->topics]);
 
     }
 
@@ -183,7 +184,7 @@ class CategoriesContoller extends Controller
         $cnt_posts=DB::select('SELECT topic_id, COUNT(topic_id) as cnt_comm FROM comments
      GROUP BY topic_id');
 
-//dd ($topics->get(0)->sub_descr);
+//dd ($topics);
 
        /* works1 if (!isset($sub_descr->description))
         {
@@ -191,13 +192,29 @@ class CategoriesContoller extends Controller
         }
         else
             $sub_descr=$sub_descr->description;  */
-       // dd($topics);
+
+       if (!isset($topics->get(0)->sub_descr))
+       {
+           $sub_descr='';
+       }
+       else $sub_descr=$topics->get(0)->sub_descr;
+
+        if (!isset($topics->get(0)->cat_descr))
+        {
+            $cat_descr='';
+        }
+        else $cat_descr=$topics->get(0)->cat_descr;
+
+
+      //  dd($topics);
         return view('schools_single')->with([
             'topics'=> $topics,
-            //'sub_descr'=>$sub_descr, works1
-            'sub_descr'=>$topics->get(0)->sub_descr,
-            'cat_descr'=>$topics->get(0)->cat_descr,
-            'cnt_posts'=>$cnt_posts
+            'sub_descr'=>$sub_descr, //works1
+           // 'sub_descr'=>$topics->get(0)->sub_descr,
+            //'cat_descr'=>$topics->get(0)->cat_descr,
+            'cat_descr'=>$cat_descr,
+            'cnt_posts'=>$cnt_posts,
+            'subcat_id'=>$id
             ]);
 
     }
@@ -214,7 +231,7 @@ class CategoriesContoller extends Controller
         $this->cntTopics ();
         $this->getTopics();
 
-//dd(count($topics));
+//dd($this->topics);
 
         return view('categories')->with([
             'topics'=> $topics,
