@@ -61,7 +61,7 @@ class SearchController extends Controller
             ->limit(5)
             ->get();
 
-        $articles[1]=DB::table('subcategories')
+        $articles[1]=DB::table('subcategories') //https://laravel.com/docs/5.6/eloquent-relationships#defining-relationships
             //->leftjoin ('comments','comments.topic_id','=','topics.id')
             ->join('categories','categories.id','=','subcategories.category_id')
             ->select('subcategories.id as subcat_id','subcategories.*')

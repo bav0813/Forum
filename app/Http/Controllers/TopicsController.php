@@ -109,12 +109,10 @@ class TopicsController extends Controller
 
             ] );
             return back ();
-
-        } else {
-            $error = 'user is banned';
-            return back ()->with ( ['errors' => $error] );
         }
 
+        $error = 'user is banned';
+        return back ()->with ( ['errors' => $error] );
 
     }
 

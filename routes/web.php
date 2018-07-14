@@ -11,9 +11,7 @@
 |
 */
 
-//Route::get('/', function () {
-//    return view('main');
-//});
+
 
     Route::group(['prefix' => 'admin',
         'namespace' => 'Admin',
@@ -21,29 +19,19 @@
     ], function()
     {
 
-//        Route::get('dashboard/news', 'AdminController@adminNews');
         Route::get('dashboard/comments', 'AdminController@adminComments');
         Route::get('dashboard/comments_all', 'AdminController@adminCommentsAll');
-
         Route::get('dashboard/users', 'AdminController@adminUsersGet');
         Route::get('dashboard/ipban', 'BanIpController@getallIPbanned');
-
         Route::post('dashboard/comments/delete/{id}', 'AdminController@deletecomments');
-
-//        Route::get('dashboard/colors', 'AdminController@adminColorsGet');
-//        Route::post('dashboard/colors', 'AdminController@adminColorsSet');
-//
         Route::post('dashboard/users/{id}/{status}', 'AdminController@renewusers');
         Route::post('dashboard/comments/{id}/{status}', 'AdminController@renewcomments');
         Route::post('dashboard/comments/edit/{id}/{comment}', 'AdminController@editcomments');
         Route::get('dashboard/categories', 'AdminController@getCategories');
         Route::post('dashboard/categories/addcategory', 'AdminController@addCategories');
         Route::post('dashboard/category/{id}/{status}', 'AdminController@renewcategory');
-
-
         Route::post('dashboard/admin/dashboard/ipban/addip4ban', 'BanIpController@addIP4ban');
-
-        Route::resource('dashboard', 'AdminController');
+        Route::resource('dashboard', 'AdminController'); //https://laravel.com/docs/5.6/controllers#resource-controllers
 
     });
 
@@ -51,14 +39,11 @@
     Route::get('/rules', 'PageController@rules');
     Route::get('/help', 'PageController@help');
 
-//    Route::get('password/email', 'PasswordController@getEmail');
-//    Route::post('password/email', 'PasswordController@postEmail');
-//    Route::get('password/reset/{token}', 'PasswordController@getReset');
-//    Route::post('password/reset', 'Auth\ResetPasswordController@postReset');
+
 
     Route::get('/livesearch/{str}', 'SearchController@livesearch');
 
-    Route::get('/search', 'SearchController@search');
+    Route::post('/search', 'SearchController@search');
     Route::get('/profile', 'UsersController@getprofile');
 
 
@@ -73,20 +58,12 @@ Route::post('/{category}/create', 'TopicsController@createtopic');
 Route::get('/{category}/{id}', 'CategoriesContoller@getsingletopic');
 Route::post('/{category}/{id}/comments', 'TopicsController@storepost');
 
-
-//Route::get('/category{id}', 'CategoriesContoller@getcategoryindex');
-
-
 Route::get('/about', 'CategoriesContoller@about');
 Route::get('/about/topic', 'CategoriesContoller@topic');
 
-
-//Route::get('/home', 'HomeController@index')->name('home');
-   // Auth::routes();
     Route::get('/register', 'RegistrationController@create');
     Route::post('/register', 'RegistrationController@store');
     Route::get('/login', 'SessionsController@create');
-//Route::post('/login', 'SessionsController@store');
     Route::post('/login', 'Auth\LoginController@login')->name('login');;
     Route::get('/logout', 'SessionsController@destroy');
 
@@ -94,7 +71,6 @@ Route::get('/about/topic', 'CategoriesContoller@topic');
     Route::post('/avatar','UsersController@storeAvatar');
 
     Route::get('/{category}', 'CategoriesContoller@getcategoryindex');
-   // Route::get('/search', 'SearchController@search');
 
     Route::get('/livesearch/results/{str}', 'SearchController@livesearchResults');
 

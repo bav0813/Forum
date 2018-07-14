@@ -221,7 +221,6 @@ class CategoriesContoller extends Controller
 
     public function getcategoryindex($id)
     {
-      //  $topics = Topics::where('category',$id)->paginate(5);
 
         $topics=DB::table('topics')
                 ->rightjoin('categories','categories.id','=','topics.category')

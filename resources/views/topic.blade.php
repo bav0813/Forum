@@ -22,7 +22,7 @@
                     @foreach($comments as $comment )
                         <tr>
                             <td class="authorab">  <h5 class="authorname">{{$comment->name}}</h5>
-                                <p>@if (count ($comment->avatar)) <img src="{{asset ('images/')}}/{{$comment->avatar}}" width="200" height="150"> @endif</p>
+                                <p>@if (isset($comment->avatar)) <img src="{{asset ('images/')}}/{{$comment->avatar}}" width="200" height="150"> @endif</p>
                                 <p>Зарегестрирован: {{(new DateTime ($comment->usr_created))->format('d.m.Y ')}}</p>
                                 <p>@foreach($cnt_user_comments as $cnt_comment)
                                        @if ($cnt_comment->user_id==$comment->user_id)
@@ -54,7 +54,13 @@
         <p><input type="submit" value="Отправить"></p>
     </form>
 
+        <div class="info">
+            <p>Сообщения от незарегистрированных пользователе отображаются только после одобрения модератором</p>
+        </divн
+
     </div>
+
+
 
 </div>
 

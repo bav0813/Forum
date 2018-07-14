@@ -108,9 +108,16 @@ class AdminController extends Controller
 
     public function addCategories(Request $request)
     {
+
+        $this->validate ($request, [
+            'description' => "required|string|min:1|max:1024",
+            'description_en' => "required|string",
+        ]);
+
         $newcat_descr = $request->description;
         $newcat_descr_en = $request->description_en;
         //dd ($newip);
+        //Categories::insert();
         DB::table ( 'categories' )->insert ( ['description' => $newcat_descr , 'description_en' => $newcat_descr_en , 'is_active' => 1] );
         return back ();
     }
@@ -119,7 +126,7 @@ class AdminController extends Controller
     public function renewcategory(Request $request , $id , $status)
     {
 
-        $category = Categories::find ( $id );
+        $category = Categories::find ( $id ); //ORFAIL
 
         $category->is_active = $status;
         $category->save ();

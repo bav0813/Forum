@@ -78,7 +78,7 @@
 
 
    <div class="poshuk">
-       <form class="form-search" method="get" action="search">
+       <form class="form-search" method="post" action="/search">
            <input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
            {{ csrf_field() }}
            <input type="text" autocomplete="off" name="search" class="input-medium search-query" onkeyup="showResult(this.value)">

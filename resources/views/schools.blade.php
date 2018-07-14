@@ -52,7 +52,6 @@
         </table>
     </div>
 
-
     {{$school->links("pagination::bootstrap-4")}}
 
 @if (count($errors) > 0)

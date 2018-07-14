@@ -363,10 +363,9 @@ footer{
 .col-sm-6{
     background-color:#edfbff;
 }
-/*.container-fluid{*/
- /*margin-top:20px;*/
-  /*padding-left:30px;*/
-  /*padding-right:30px;*/
-/*}*/
 
-/*.search {border: 1px solid #a8d4b1;margin: 2px 0px;border-radius:4px;}*/
+
+.info {
+    text-align: center;
+    color:red;
+}
